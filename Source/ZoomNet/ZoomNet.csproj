@@ -16,20 +16,21 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <PackageId>ZoomNet</PackageId>
+    <PackageId>SW2ZoomNet</PackageId>
     <AssemblyName>ZoomNet</AssemblyName>
     <AssemblyTitle>ZoomNet</AssemblyTitle>
-    <Authors>Jeremie Desautels</Authors>
+    <Authors>Smartway2</Authors>
     <Company></Company>
-    <Description>ZoomNet is a strongly typed .NET client for Zoom's API.</Description>
+    <Description>SW2ZoomNet is a strongly typed .NET client for Zoom's API.
+forked from https://github.com/Jericho/ZoomNet on 11/30/2020</Description>
     <Copyright>Copyright © Jeremie Desautels and contributors 2019 - Present</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Jericho/ZoomNet</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/sw2dev/ZoomNet</PackageProjectUrl>
     <PackageIconUrl>https://github.com/identicons/jericho.png</PackageIconUrl>
     <PackageIcon>PackageIcon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>ZoomNet zoom meeting webinar</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags></PackageTags>
+    <PackageReleaseNotes>non production DANGER!!!</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -74,6 +75,8 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(SolutionDir)StyleCopRules.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>SW2ZoomNet</Product>
   </PropertyGroup>
 
 </Project>
