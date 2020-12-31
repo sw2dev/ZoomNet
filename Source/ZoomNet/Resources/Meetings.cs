@@ -658,20 +658,6 @@ namespace ZoomNet.Resources
 				.AsMessage();
 		}
 
-		private Task UpdateRegistrantsStatusAsync(long meetingId, IEnumerable<(string RegistrantId, string RegistrantEmail)> registrantsInfo, string status, string occurrenceId = null, CancellationToken cancellationToken = default)
-		{
-			var data = new JObject();
-			data.AddPropertyIfValue("action", status);
-			data.AddPropertyIfValue("registrants", registrantsInfo.Select(ri => new { id = ri.RegistrantId, email = ri.RegistrantEmail }).ToArray());
-
-			return _client
-				.PutAsync($"meetings/{meetingId}/registrants/status")
-				.WithArgument("occurence_id", occurrenceId)
-				.WithJsonBody(data)
-				.WithCancellationToken(cancellationToken)
-				.AsMessage();
-		}
-
 		/// <summary>
 		/// Retrieve the details of a Scheduled meeting.
 		/// </summary>
@@ -681,9 +667,7 @@ namespace ZoomNet.Resources
 		/// <returns>
 		/// The <see cref="ScheduledMeeting" />.
 		/// </returns>
-#pragma warning disable SA1202 // Elements should be ordered by access
 		public Task<ScheduledMeeting> GetScheduledAsync(long meetingId, string occurrenceId = null, CancellationToken cancellationToken = default)
-#pragma warning restore SA1202 // Elements should be ordered by access
 		{
 			return _client
 				.GetAsync($"meetings/{meetingId}")
@@ -692,7 +676,14 @@ namespace ZoomNet.Resources
 				.AsObject<ScheduledMeeting>(null, new MeetingConverter());
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Modify the details of a Scheduled meeting.
+		/// </summary>
+		/// <param name="meetingId">The meeting ID.</param>
+		/// <param name="updatedMeeting">The modified ScheduledMeeting.</param>
+		/// <param name="occurrenceId">The meeting occurrence id.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
 		public Task UpdateScheduledAsync(long meetingId, ScheduledMeeting updatedMeeting, string occurrenceId = null, CancellationToken cancellationToken = default)
 		{
 			return _client
@@ -703,7 +694,14 @@ namespace ZoomNet.Resources
 				.AsMessage();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Modify the details of a Recurring meeting.
+		/// </summary>
+		/// <param name="meetingId">The meeting ID.</param>
+		/// <param name="updatedMeeting">The modified RecurringMeeting.</param>
+		/// <param name="occurrenceId">The meeting occurrence id.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
 		public Task UpdateRecurringAsync(long meetingId, RecurringMeeting updatedMeeting, string occurrenceId = null, CancellationToken cancellationToken = default)
 		{
 			return _client
@@ -732,6 +730,20 @@ namespace ZoomNet.Resources
 				.WithArgument("occurrence_id", occurrenceId)
 				.WithArgument("schedule_for_reminder", scheduleForReminder)
 				.WithArgument("cancel_meeting_reminder", cancelMeetingReminder)
+				.WithCancellationToken(cancellationToken)
+				.AsMessage();
+		}
+
+		private Task UpdateRegistrantsStatusAsync(long meetingId, IEnumerable<(string RegistrantId, string RegistrantEmail)> registrantsInfo, string status, string occurrenceId = null, CancellationToken cancellationToken = default)
+		{
+			var data = new JObject();
+			data.AddPropertyIfValue("action", status);
+			data.AddPropertyIfValue("registrants", registrantsInfo.Select(ri => new { id = ri.RegistrantId, email = ri.RegistrantEmail }).ToArray());
+
+			return _client
+				.PutAsync($"meetings/{meetingId}/registrants/status")
+				.WithArgument("occurence_id", occurrenceId)
+				.WithJsonBody(data)
 				.WithCancellationToken(cancellationToken)
 				.AsMessage();
 		}
